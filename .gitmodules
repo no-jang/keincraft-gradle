@@ -1,0 +1,3 @@
+[submodule "minecraft-clone"]
+	path = minecraft-clone
+	url = https://github.com/fischer-felix/minecraft-clone
