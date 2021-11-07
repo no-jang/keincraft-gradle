@@ -31,3 +31,11 @@ dependencies {
     // Math
     implementation("org.joml:joml:1.10.2")
 }
+
+tasks.create<Sync>("copyLibraries") {
+    from(configurations.runtimeClasspath)
+    into("minecraft-clone/libs")
+    preserve {
+        include("*.txt")
+    }
+}
