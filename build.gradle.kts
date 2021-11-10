@@ -4,6 +4,7 @@ plugins {
 
 repositories {
     mavenCentral()
+    maven("https://oss.sonatype.org/content/repositories/snapshots/")
 }
 
 sourceSets {
@@ -27,7 +28,7 @@ val nativeLibraries = arrayOf(
 )
 
 dependencies {
-    implementation(platform("org.lwjgl:lwjgl-bom:3.2.3")) // Lwjgl Library Versions
+    implementation(platform("org.lwjgl:lwjgl-bom:3.3.0-SNAPSHOT")) // Lwjgl Library Versions
 
     implementation("org.lwjgl", "lwjgl") // Core
     //implementation("org.lwjgl", "lwjgl-opengl") // Graphics API
