@@ -9,7 +9,7 @@ repositories {
 
 sourceSets {
     main {
-        java.srcDir("minecraft-clone")
+        java.srcDir("keincraft")
     }
 }
 
@@ -65,7 +65,7 @@ dependencies {
 
 tasks.create<Sync>("copyLibraries") {
     from(configurations.runtimeClasspath)
-    into("minecraft-clone/libs")
+    into("keincraft/libs")
     preserve {
         include("*.txt")
     }

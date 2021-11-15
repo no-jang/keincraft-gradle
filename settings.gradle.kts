@@ -1,1 +1,1 @@
-rootProject.name = "minecraft-clone-gradle"
+rootProject.name = "keincraft-gradle"
