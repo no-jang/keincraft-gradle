@@ -11,12 +11,18 @@ sourceSets {
     main {
         java {
             srcDir("keincraft")
+
+            exclude("**.properties")
+            exclude("shaders/**")
+            exclude("textures/**")
         }
 
         resources {
             srcDir("keincraft")
 
             include("**.properties")
+            include("shaders/**")
+            include("textures/**")
         }
     }
 }
@@ -34,6 +40,7 @@ dependencies {
     implementation("org.lwjgl", "lwjgl-assimp") // Model Loading
     implementation("org.lwjgl", "lwjgl-openal") // Audio
     implementation("org.lwjgl", "lwjgl-vma") // Vulkan Memory Allocator
+    implementation("org.lwjgl", "lwjgl-shaderc") // Shader Compiler
 
     implementation("io.github.spair", "imgui-java-lwjgl3", "1.84.1.3") // GUI
 
@@ -50,6 +57,7 @@ dependencies {
         runtimeOnly("org.lwjgl", "lwjgl-assimp", classifier = native)
         runtimeOnly("org.lwjgl", "lwjgl-openal", classifier = native)
         runtimeOnly("org.lwjgl", "lwjgl-vma", classifier = native)
+        runtimeOnly("org.lwjgl", "lwjgl-shaderc", classifier = native)
 
         runtimeOnly("io.github.spair", "imgui-java-$native", "1.84.1.3")
     }
