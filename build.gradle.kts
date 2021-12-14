@@ -48,6 +48,7 @@ dependencies {
     implementation("org.joml:joml:1.10.2") // Math
     implementation("org.tinylog:tinylog-api:2.4.0-M2") // Logging
     implementation("org.tinylog:tinylog-impl:2.4.0-M2") // Logging
+    implementation("org.jetbrains:annotations:23.0.0")
 
     nativeOS.forEach { native ->
         runtimeOnly("org.lwjgl", "lwjgl", classifier = native)
