@@ -54,7 +54,7 @@ dependencies {
     // Util
     implementation("org.joml:joml:1.10.2") // Math
     implementation("org.tinylog:tinylog-impl:2.4.1") // Logging
-    implementation("org.tinylog:slf4j-tinylog:2.4.1")
+    //implementation("org.tinylog:slf4j-tinylog:2.4.1")
 
     compileOnly("org.checkerframework:checker-qual:3.20.0")
     //implementation("com.github.spotbugs:spotbugs-annotations:4.5.2")
