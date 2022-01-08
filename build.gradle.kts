@@ -14,17 +14,28 @@ sourceSets {
         java {
             srcDir("keincraft")
 
-            exclude("**.properties")
-            exclude("shaders/**")
-            exclude("textures/**")
+            include("engine/**")
         }
 
         resources {
             srcDir("keincraft")
 
             include("**.properties")
-            include("shaders/**")
-            include("textures/**")
+            include("resources/**")
+        }
+    }
+
+    test {
+        java {
+            srcDir("keincraft-test")
+
+            include("engine/**")
+        }
+
+        resources {
+            srcDir("keincraft-test")
+
+            exclude("engine/**")
         }
     }
 }
@@ -34,7 +45,7 @@ val nativeOS = arrayOf("natives-linux", "natives-macos", "natives-windows")
 dependencies {
     compileOnly("org.checkerframework:checker-qual:3.21.0") // Checker annotations
 
-    implementation(platform("org.lwjgl:lwjgl-bom:3.3.0-SNAPSHOT")) // Lwjgl Library Versions
+    implementation(platform("org.lwjgl:lwjgl-bom:3.3.1-SNAPSHOT")) // Lwjgl Library Versions
 
     implementation("org.lwjgl", "lwjgl") // Core
     implementation("org.lwjgl", "lwjgl-glfw") // Window, Input
@@ -50,10 +61,6 @@ dependencies {
 
     implementation("org.joml:joml:1.10.2") // Math
     implementation("org.tinylog:tinylog-impl:2.4.1") // Logging
-    implementation("com.google.inject:guice:5.0.1") // Dependency Injection
-
-    implementation("org.junit.jupiter:junit-jupiter-engine:5.8.2") // Test
-    implementation("com.google.truth:truth:1.1.3") // Assertions
 
     // Native Libraries
     nativeOS.forEach { native ->
@@ -71,6 +78,9 @@ dependencies {
 
     // Only needed for macos
     runtimeOnly("org.lwjgl", "lwjgl-vulkan", classifier = "natives-macos")
+
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.8.2") // Test
+    testImplementation("com.google.truth:truth:1.1.3") // Assertions
 }
 
 tasks {
