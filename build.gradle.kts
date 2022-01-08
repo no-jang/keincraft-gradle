@@ -59,7 +59,7 @@ dependencies {
 
     implementation("io.github.spair", "imgui-java-lwjgl3", "1.84.1.3") // GUI
 
-    implementation("org.joml:joml:1.10.2") // Math
+    implementation("org.joml:joml:1.10.3") // Math
     implementation("org.tinylog:tinylog-impl:2.4.1") // Logging
 
     // Native Libraries
