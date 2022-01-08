@@ -1,3 +1,4 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import proguard.gradle.ProGuardTask
 
 plugins {
@@ -6,37 +7,51 @@ plugins {
 
 configurations {
     create("proguard") {
-        extendsFrom(configurations.getByName("implementation"))
         extendsFrom(configurations.getByName("compileOnly"))
     }
 
-    create("proguard-all") {
+    create("proguard-dev") {
+        extendsFrom(configurations.getByName("implementation"))
         extendsFrom(configurations.getByName("compileOnly"))
     }
 }
 
-setupProguardTask("proguard", "jar")
-setupProguardTask("proguard-all", "shadowJar")
+tasks {
+    named<Jar>("jar") {
+        archiveClassifier.set("dev")
+    }
 
-fun setupProguardTask(type: String, jarTaskName: String) {
-    tasks.create<ProGuardTask>(type) {
+    named<ShadowJar>("shadowJar") {
+        group = "build"
+        archiveClassifier.set("")
+    }
+}
+
+setupProguardTask("proguardJar", "optimized", "proguard", "shadowJar")
+setupProguardTask("proguardDevJar", "optimized-dev", "proguard-dev", "jar")
+
+fun setupProguardTask(name: String, prefix: String, configuration: String, jarTaskName: String) {
+    tasks.create<ProGuardTask>(name) {
         val jarTask = tasks.named(jarTaskName)
-        val outputFileName = "$buildDir/libs/$name-$version-$type"
-        val outputFileJar = "$outputFileName.jar"
+
+        val outputFileNameProvider = provider {
+            "$buildDir/libs/${project.name}-${project.version}${if (prefix.isNotEmpty()) "-$prefix" else ""}"
+        }
+
+        val outputFileProvider = provider {
+            file("${outputFileNameProvider.get()}.jar")
+        }
 
         group = "build"
 
         inputs.files(jarTask)
-        outputs.files(outputFileJar)
+        outputs.files(outputFileProvider)
 
         injars(jarTask)
-        outjars(outputFileJar)
 
         configuration("optimized.pro")
 
-        printmapping("$outputFileName.mapping")
-
-        optimizationpasses(5)
+        optimizationpasses(10)
         overloadaggressively()
         repackageclasses()
         allowaccessmodification()
@@ -44,7 +59,10 @@ fun setupProguardTask(type: String, jarTaskName: String) {
         verbose()
 
         doFirst {
-            libraryjars(configurations.getByName(type).files)
+            libraryjars(configurations.getByName(configuration).files)
+            outjars(outputFileProvider.get())
+
+            printmapping("${outputFileNameProvider.get()}.mapping")
         }
     }
 }

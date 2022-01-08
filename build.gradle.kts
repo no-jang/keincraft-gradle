@@ -1,43 +1,15 @@
 plugins {
-    java
-
+    id("config-source")
     id("config-build")
+    id("config-publish")
 }
+
+group = "keincraft"
+version = "0.1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
     maven("https://oss.sonatype.org/content/repositories/snapshots/")
-}
-
-sourceSets {
-    main {
-        java {
-            srcDir("keincraft")
-
-            include("engine/**")
-        }
-
-        resources {
-            srcDir("keincraft")
-
-            include("**.properties")
-            include("resources/**")
-        }
-    }
-
-    test {
-        java {
-            srcDir("keincraft-test")
-
-            include("engine/**")
-        }
-
-        resources {
-            srcDir("keincraft-test")
-
-            exclude("engine/**")
-        }
-    }
 }
 
 val nativeOS = arrayOf("natives-linux", "natives-macos", "natives-windows")

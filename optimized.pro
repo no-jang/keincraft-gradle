@@ -3,7 +3,7 @@
 -libraryjars <java.home>/jmods/java.sql.jmod
 -libraryjars <java.home>/jmods/jdk.unsupported.jmod
 
--keep public class Test {
+-keep public class main.Main {
     public static void main(java.lang.String[]);
 }
 
