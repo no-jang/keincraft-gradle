@@ -43,7 +43,7 @@ sourceSets {
 val nativeOS = arrayOf("natives-linux", "natives-macos", "natives-windows")
 
 dependencies {
-    compileOnly("org.checkerframework:checker-qual:3.21.0") // Checker annotations
+    compileOnly("org.checkerframework:checker-qual:3.21.1") // Checker annotations
 
     implementation(platform("org.lwjgl:lwjgl-bom:3.3.1-SNAPSHOT")) // Lwjgl Library Versions
 
