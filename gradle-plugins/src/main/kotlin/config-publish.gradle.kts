@@ -1,39 +1,107 @@
+import proguard.gradle.ProGuardTask
+
 plugins {
     application
+
+    id("proguard")
 }
 
-application {
-    mainClass.set("Main")
+tasks {
+    named("startScripts") {
+        group = "distribution"
+    }
 }
 
-val proguardJarTask: TaskProvider<Task> = tasks.named("proguardJar")
+/*
+val transformJarTask: TaskProvider<Task> = tasks.named("transformJar")
 
-val startOptimizedScriptsTask = tasks.register<CreateStartScripts>("startOptimizedScripts") {
-    classpath = files(proguardJarTask)
+val startTransformScriptsTask = tasks.register<CreateStartScripts>("startTransformScripts") {
+    classpath = files(transformJarTask)
     applicationName = project.name
-    outputDir = buildDir.resolve("scriptsOptimized")
+    outputDir = buildDir.resolve("scriptsTransform")
 }
 
 distributions {
     named("main") {
-        distributionBaseName.set("${project.name}-dev")
-    }
-
-    named("shadow") {
         distributionBaseName.set(project.name)
-    }
-
-    create("optimized") {
-        distributionBaseName.set("${project.name}-optimized")
         contents {
             into("bin") {
-                from(startOptimizedScriptsTask)
+                from(tasks.named("startScripts"))
                 fileMode = 493
             }
 
             into("lib") {
-                from(proguardJarTask)
+                from(transformJarTask)
             }
+        }
+    }
+
+    remove("shadow")
+
+*/
+/*    named("shadow") {
+        distributionBaseName.set("${project.name}-all")
+    }
+
+    create("transform") {
+        distributionBaseName.set(project.name)
+        contents {
+            into("bin") {
+                from(startTransformScriptsTask)
+                fileMode = 493
+            }
+
+            into("lib") {
+                from(transformJarTask)
+            }
+        }
+    }*//*
+
+}*/
+
+fun setupDistJar(name: String, prefix: String, configs: Array<String>, jarTaskName: String) {
+    configurations.create(name) {
+        for (configuration in configs) {
+            extendsFrom(configurations.getByName(configuration))
+        }
+    }
+
+    tasks.create<ProGuardTask>(name) {
+        val jarTask = tasks.named(jarTaskName)
+
+        val outputNameProvider = provider {
+            "$buildDir/libs/${project.name}-${project.version}${if (prefix.isNotEmpty()) "-$prefix" else ""}"
+        }
+
+        val outputJarProvider = provider {
+            file("${outputNameProvider.get()}.jar")
+        }
+
+        val outputMappingProvider = provider {
+            file("${outputNameProvider.get()}.mapping")
+        }
+
+        group = "distribution"
+
+        inputs.files(jarTask)
+        outputs.files(outputJarProvider)
+
+        injars(jarTask)
+        outjars(outputJarProvider)
+
+        configuration("transform.pro")
+
+        optimizationpasses(10)
+        overloadaggressively()
+        repackageclasses()
+        allowaccessmodification()
+
+        verbose()
+
+        doFirst {
+            libraryjars(configurations.getByName(name).files)
+
+            printmapping(outputMappingProvider)
         }
     }
 }

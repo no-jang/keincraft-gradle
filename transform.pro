@@ -13,3 +13,6 @@
 -dontwarn sun.misc.**
 -dontwarn android.**
 -dontwarn dalvik.**
+
+# Missing opengl dependency
+-dontwarn org.lwjgl.opengl.GL
