@@ -1,10 +1,5 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-
 plugins {
     java
-
-    id("com.github.johnrengelman.shadow") version "7.1.2"
-    id("proguard") apply false
 }
 
 // General information
@@ -100,127 +95,15 @@ tasks {
             include("*.txt")
         }
     }
-}
 
-// Dev jar containing only the compiled project
-val jarTask = tasks.named<Jar>("jar") {
-    archiveClassifier.set("dev")
-}
-
-// All (shadow) jar containing dev jar + every library
-val shadowJarTask = tasks.named<ShadowJar>("shadowJar") {
-    group = "build"
-    archiveClassifier.set("all")
-}
-
-/*
-val dirJarTask: TaskProvider<Task> = tasks.named("distJar")
-
-val startTransformScriptsTask = tasks.register<CreateStartScripts>("startTransformScripts") {
-    group = "distribution"
-    classpath = files(dirJarTask)
-    applicationName = project.name
-    outputDir = buildDir.resolve("scriptsTransform")
-}
-
-distributions {
-    named("main") {
-        distributionBaseName.set(project.name)
-        contents {
-            into("bin") {
-                from(tasks.named("startScripts"))
-                fileMode = 493
-            }
-
-            into("lib") {
-                from(dirJarTask)
-            }
-        }
-    }
-
-    named("windows") {
-        distributionBaseName.set(project.name)
-        contents {
-            into("bin") {
-                from(tasks.named("startScripts"))
-                fileMode = 493
-            }
-
-            into("lib") {
-                from(transformJarTask)
-            }
-        }
-    }
-}
-
-tasks.forEach {
-    if(it.name.contains("shadow", true) && (it.group == "distribution" || it.group == "")) {
-        it.enabled = false
-        it.group = "disabled"
-    }
-}*/
-
-setupDistJar("distDevJar", "dist-dev", arrayOf("compileOnly", "implementation"), jarTask)
-setupDistJar("distJar", "", arrayOf("compileOnly"), shadowJarTask)
-
-// Create one dist jar per operating system where only needed system specific library files will be placed
-for (os in supportedOS) {
-    tasks.create<Jar>("${os}DistJar") {
-        group = "distribution"
-        from(
-            zipTree(
-                tasks.named<proguard.gradle.ProGuardTask>("distJar")
-                    .get().outJarFileCollection
-            )
-                .files.first()
-        )
-        supportedOS.filter { it != os }.forEach {
-            exclude(it)
-        }
-    }
-}
-
-fun setupDistJar(name: String, prefix: String, configs: Array<String>, jarTask: TaskProvider<out Task>) {
-    configurations.create(name) {
-        for (configuration in configs) {
-            extendsFrom(configurations.getByName(configuration))
-        }
-    }
-
-    tasks.create<proguard.gradle.ProGuardTask>(name) {
-        val outputNameProvider = provider {
-            "$buildDir/libs/${project.name}-${project.version}${if (prefix.isNotEmpty()) "-$prefix" else ""}"
-        }
-
-        val outputJarProvider = provider {
-            file("${outputNameProvider.get()}.jar")
-        }
-
-        val outputMappingProvider = provider {
-            file("${outputNameProvider.get()}.mapping")
-        }
-
-        group = "distribution"
-
-        inputs.files(jarTask)
-        outputs.files(outputJarProvider)
-
-        injars(jarTask)
-        outjars(outputJarProvider)
-
-        configuration("transform.pro")
-
-        optimizationpasses(10)
-        overloadaggressively()
-        repackageclasses()
-        allowaccessmodification()
-
-        verbose()
-
-        doFirst {
-            libraryjars(configurations.getByName(name).files)
-
-            printmapping(outputMappingProvider)
+    // Copy libraries in keincraft subproject libs directory
+    create<Sync>("copyTestLibraries") {
+        from(provider {
+            configurations.named("testRuntimeClasspath").get().minus(configurations.named("runtimeClasspath").get())
+        })
+        into("keincraft-test/libs")
+        preserve {
+            include("*.txt")
         }
     }
 }
