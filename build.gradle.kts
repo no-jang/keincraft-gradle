@@ -1,5 +1,9 @@
+import taskcontainers.createDependencySyncTask
+
 plugins {
     java
+
+    id("util")
 }
 
 // General information
@@ -72,7 +76,7 @@ dependencies {
 
     // Test dependencies
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.8.2") // Test
-    testImplementation("com.google.truth:truth:1.1.3") // Assertions
+    testImplementation("org.assertj:assertj-core:3.22.0") // Assertions
 }
 
 tasks {
@@ -86,24 +90,11 @@ tasks {
     named<Test>("test") {
         useJUnitPlatform()
     }
-
-    // Copy libraries in keincraft subproject libs directory
-    create<Sync>("copyLibraries") {
-        from(configurations.named("runtimeClasspath"))
-        into("keincraft/libs")
-        preserve {
-            include("*.txt")
-        }
-    }
-
-    // Copy libraries in keincraft subproject libs directory
-    create<Sync>("copyTestLibraries") {
-        from(provider {
-            configurations.named("testRuntimeClasspath").get().minus(configurations.named("runtimeClasspath").get())
-        })
-        into("keincraft-test/libs")
-        preserve {
-            include("*.txt")
-        }
-    }
 }
+
+tasks.createDependencySyncTask("syncDependencies", "keincraft/libs", configurations.named("runtimeClasspath"))
+tasks.createDependencySyncTask("syncTestDependencies", "keincraft-test/libs", provider {
+    val runtimeClasspath = configurations.named("runtimeClasspath").get()
+    val testRuntimeClasspath = configurations.named("testRuntimeClasspath").get()
+    return@provider testRuntimeClasspath.minus(runtimeClasspath)
+})
