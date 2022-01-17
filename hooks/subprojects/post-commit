@@ -12,7 +12,7 @@ while read variable; do
     unset $variable
 done < <(env | grep "^GIT_" | sed 's/=.*//g')
 
-COMMIT_MSG="update submodules"
+COMMIT_MSG="chore: update submodules"
 GIT="git"
 SUPERPROJECT_WORKING_TREE=`git rev-parse --show-superproject-working-tree`
 echo "📣 Committing to $SUPERPROJECT_WORKING_TREE."
