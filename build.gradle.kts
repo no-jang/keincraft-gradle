@@ -92,9 +92,15 @@ tasks {
     }
 }
 
-tasks.createDependencySyncTask("syncDependencies", "keincraft/libs", configurations.named("runtimeClasspath"))
+tasks.createDependencySyncTask("syncDependencies", "keincraft/libs", provider {
+    val runtimeClasspath = configurations.named("runtimeClasspath").get()
+    val compileClasspath = configurations.named("compileClasspath").get()
+    return@provider runtimeClasspath.plus(compileClasspath)
+})
 tasks.createDependencySyncTask("syncTestDependencies", "keincraft-test/libs", provider {
     val runtimeClasspath = configurations.named("runtimeClasspath").get()
+    val compileClasspath = configurations.named("compileClasspath").get()
     val testRuntimeClasspath = configurations.named("testRuntimeClasspath").get()
-    return@provider testRuntimeClasspath.minus(runtimeClasspath)
+    val testCompileClasspath = configurations.named("testRuntimeClasspath").get()
+    return@provider testRuntimeClasspath.plus(testCompileClasspath).minus(runtimeClasspath).minus(compileClasspath)
 })
