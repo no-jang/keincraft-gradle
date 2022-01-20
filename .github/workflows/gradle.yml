@@ -20,6 +20,14 @@ jobs:
         uses: gradle/gradle-build-action@v2.1.0
         with:
           arguments: build
+      - name: Upload coverage
+        uses: codacy/codacy-coverage-reporter-action@v1.3.0
+        with:
+          project-token: ${{ secrets.KEINCRAFT_CODACY_API }}
+      - name: Upload test coverage
+        uses: codacy/codacy-coverage-reporter-action@v1.3.0
+        with:
+          project-token: ${{ secrets.KEINCRAFT_TEST_CODACY_API }}
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
