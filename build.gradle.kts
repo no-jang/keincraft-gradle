@@ -2,6 +2,7 @@ import taskcontainers.createDependencySyncTask
 
 plugins {
     java
+    jacoco
 
     id("util")
 }
@@ -90,6 +91,20 @@ tasks {
     named<Test>("test") {
         useJUnitPlatform()
     }
+
+    // Configure code coverage
+    named<JacocoReport>("jacocoTestReport") {
+        dependsOn("test")
+
+        reports {
+            xml.required.set(true)
+        }
+    }
+
+    named("build") {
+        dependsOn("javadoc")
+        dependsOn("jacocoTestReport")
+    }
 }
 
 tasks.createDependencySyncTask("syncDependencies", "keincraft/libs", provider {
@@ -97,6 +112,7 @@ tasks.createDependencySyncTask("syncDependencies", "keincraft/libs", provider {
     val compileClasspath = configurations.named("compileClasspath").get()
     return@provider runtimeClasspath.plus(compileClasspath)
 })
+
 tasks.createDependencySyncTask("syncTestDependencies", "keincraft-test/libs", provider {
     val runtimeClasspath = configurations.named("runtimeClasspath").get()
     val compileClasspath = configurations.named("compileClasspath").get()
