@@ -1,10 +1,11 @@
-import taskcontainers.createDependencySyncTask
+import task.registerDependencySyncTasks
+import task.registerUploadCoverageTask
 
 plugins {
     java
     jacoco
 
-    id("util")
+    id("keincraft")
 }
 
 // General information
@@ -96,6 +97,8 @@ tasks {
     named<JacocoReport>("jacocoTestReport") {
         dependsOn("test")
 
+        sourceSets(sourceSets.getByName("test"))
+
         reports {
             xml.required.set(true)
         }
@@ -103,20 +106,18 @@ tasks {
 
     named("build") {
         dependsOn("javadoc")
+    }
+
+    named("check") {
         dependsOn("jacocoTestReport")
+    }
+
+    create("ci") {
+        group = "build"
+        dependsOn("build")
+        dependsOn("uploadCoverage")
     }
 }
 
-tasks.createDependencySyncTask("syncDependencies", "keincraft/libs", provider {
-    val runtimeClasspath = configurations.named("runtimeClasspath").get()
-    val compileClasspath = configurations.named("compileClasspath").get()
-    return@provider runtimeClasspath.plus(compileClasspath)
-})
-
-tasks.createDependencySyncTask("syncTestDependencies", "keincraft-test/libs", provider {
-    val runtimeClasspath = configurations.named("runtimeClasspath").get()
-    val compileClasspath = configurations.named("compileClasspath").get()
-    val testRuntimeClasspath = configurations.named("testRuntimeClasspath").get()
-    val testCompileClasspath = configurations.named("testRuntimeClasspath").get()
-    return@provider testRuntimeClasspath.plus(testCompileClasspath).minus(runtimeClasspath).minus(compileClasspath)
-})
+tasks.registerDependencySyncTasks(project)
+tasks.registerUploadCoverageTask(project)

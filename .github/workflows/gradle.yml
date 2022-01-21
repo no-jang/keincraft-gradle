@@ -19,7 +19,7 @@ jobs:
       - name: Build
         uses: gradle/gradle-build-action@v2.1.0
         with:
-          arguments: build
+          arguments: ci
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
