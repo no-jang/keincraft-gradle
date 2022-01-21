@@ -20,7 +20,7 @@ jobs:
       - name: Build
         uses: gradle/gradle-build-action@v2.1.0
         with:
-          arguments: ci -DkeincraftCodacyToken=${{ secrets.KEINCRAFT_CODACY_API }} -DkeincraftTestCodacyToken=${{ secrets.KEINCRAFT_TEST_CODACY_TOKEN }}
+          arguments: ci -DkeincraftCodacyToken=${{ secrets.KEINCRAFT_CODACY_API }} -DkeincraftTestCodacyToken=${{ secrets.KEINCRAFT_TEST_CODACY_API }}
           
       - name: Upload
         uses: actions/upload-artifact@v2
