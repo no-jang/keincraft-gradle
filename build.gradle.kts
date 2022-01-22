@@ -66,7 +66,10 @@ dependencies {
     implementation("org.lwjgl", "lwjgl-glfw") // Window, Input
     implementation("org.lwjgl", "lwjgl-vulkan") // Graphics API
 
-    implementation("org.tinylog:tinylog-impl:2.4.1") // Logging
+    // Logging
+    implementation("org.tinylog:tinylog-impl:2.4.1")
+    implementation("org.slf4j:slf4j-api:2.0.0-alpha6")
+    implementation("org.tinylog:slf4j-tinylog:2.4.1")
 
     // Native libraries
     supportedOS.map { "natives-$it" }.forEach { native ->
