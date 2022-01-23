@@ -6,9 +6,6 @@ out
 .gradle
 build
 
-# Submodules
-keincraft
-
 # Run
 logs
 run

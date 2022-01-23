@@ -14,9 +14,10 @@ done < <(env | grep "^GIT_" | sed 's/=.*//g')
 
 COMMIT_MSG="chore: update submodules"
 GIT="git"
-SUPERPROJECT_WORKING_TREE=`git rev-parse --show-superproject-working-tree`
+SUPERPROJECT_WORKING_TREE=$(git rev-parse --show-superproject-working-tree)
 echo "📣 Committing to $SUPERPROJECT_WORKING_TREE."
-cd $SUPERPROJECT_WORKING_TREE
+cd $SUPERPROJECT_WORKING_TREE || exit
+$GIT reset .
 $GIT add keincraft
 $GIT add keincraft-test
 $GIT commit -m "$COMMIT_MSG"

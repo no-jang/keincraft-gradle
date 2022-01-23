@@ -1,11 +1,11 @@
-import task.registerDependencySyncTasks
 import task.registerUploadCoverageTask
 
 plugins {
     java
     jacoco
 
-    id("keincraft")
+    id("coverage.coverage")
+    id("sync.sync-deps")
 }
 
 // General information
@@ -122,5 +122,4 @@ tasks {
     }
 }
 
-tasks.registerDependencySyncTasks(project)
 tasks.registerUploadCoverageTask(project)
