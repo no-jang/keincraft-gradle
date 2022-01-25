@@ -66,6 +66,12 @@ dependencies {
     implementation("org.lwjgl", "lwjgl-glfw") // Window, Input
     implementation("org.lwjgl", "lwjgl-vulkan") // Graphics API
 
+
+    implementation("org.lwjgl", "lwjgl-shaderc")
+
+//    implementation("org.lwjgl3:demo:3.3.1")
+    implementation("org.joml:joml:1.10.3")
+
     // Logging
     implementation("org.tinylog:tinylog-impl:2.4.1")
     implementation("org.slf4j:slf4j-api:2.0.0-alpha6")
