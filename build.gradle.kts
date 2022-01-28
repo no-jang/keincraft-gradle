@@ -89,6 +89,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.8.2") // Test
     testImplementation("org.assertj:assertj-core:3.22.0") // Assertions
     testImplementation("org.mockito:mockito-core:4.3.1") // Mocking
+    testImplementation("org.mockito:mockito-junit-jupiter:4.3.1") // Mocking
 }
 
 tasks {
