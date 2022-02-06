@@ -1,29 +1,17 @@
 package sync
 
-tasks {
-    create<Sync>("syncDeps") {
-        into("keincraft/libs")
-        from(configurations.named("runtimeClasspath"))
-        from(configurations.named("compileClasspath"))
+plugins {
+    java
+}
 
-        preserve {
-            include("**.txt")
+afterEvaluate {
+    tasks.create<Sync>("syncDependencies") {
+        into(file("keincraft-deps"))
+
+        sourceSets.forEach { sourceSet ->
+            from(configurations.getByName(sourceSet.compileClasspathConfigurationName))
+            from(configurations.getByName(sourceSet.runtimeClasspathConfigurationName))
         }
-    }
-
-    create<Sync>("syncTestDeps") {
-        into("keincraft-test/libs")
-        from(provider {
-            val configuration = configurations.named("runtimeClasspath").get()
-            val testConfiguration = configurations.named("testRuntimeClasspath").get()
-            testConfiguration.minus(configuration)
-        })
-
-        from(provider {
-            val configuration = configurations.named("compileClasspath").get()
-            val testConfiguration = configurations.named("testCompileClasspath").get()
-            testConfiguration.minus(configuration)
-        })
 
         preserve {
             include("**.txt")

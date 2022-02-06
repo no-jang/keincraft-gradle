@@ -1,5 +1,6 @@
 package task
 
+/*
 import org.gradle.api.GradleException
 import org.gradle.api.Project
 import org.gradle.api.tasks.TaskContainer
@@ -9,6 +10,8 @@ import java.io.File
 
 fun TaskContainer.registerUploadCoverageTask(project: Project) {
     create("uploadCoverage").apply {
+        dependsOn(project.tasks.getByName("jacocoTestReport"))
+
         doFirst {
             val workingDir = project.file("${project.buildDir}/tmp/codacy").createDirIfNotExists()
 
@@ -45,4 +48,4 @@ fun downloadCoverageUploader(project: Project, workingDir: File) {
         workingDir(workingDir)
         commandLine("wget -O get.sh https://coverage.codacy.com/get.sh".split(" "))
     }
-}
+}*/

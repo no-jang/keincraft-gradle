@@ -1,4 +1,4 @@
-import task.registerUploadCoverageTask
+//import task.registerUploadCoverageTask
 
 plugins {
     java
@@ -18,6 +18,13 @@ val supportedOS = listOf("linux", "macos", "windows")
 repositories {
     mavenCentral()
     maven("https://oss.sonatype.org/content/repositories/snapshots/")
+}
+
+afterEvaluate {
+    sourceSets.forEach {
+        println(it.name)
+        println(it.compileClasspath.files)
+    }
 }
 
 // Set git subprojects as source roots
@@ -119,15 +126,10 @@ tasks {
         dependsOn("javadoc")
     }
 
-    named("check") {
-        dependsOn("jacocoTestReport")
-    }
-
     create("ci") {
-        group = "build"
         dependsOn("build")
         dependsOn("uploadCoverage")
     }
 }
 
-tasks.registerUploadCoverageTask(project)
+//tasks.registerUploadCoverageTask(project)

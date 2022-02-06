@@ -5,7 +5,7 @@ import org.gradle.api.file.RegularFile
 import org.gradle.api.provider.Provider
 import java.io.File
 
-fun File.createIfNotExists(): File {
+/*fun File.create(): File {
     if (isDirectory) {
         delete()
     }
@@ -17,7 +17,7 @@ fun File.createIfNotExists(): File {
     return this
 }
 
-fun File.createDirIfNotExists(): File {
+fun File.createDir(): File {
     if (!isDirectory) {
         delete()
     }
@@ -27,7 +27,7 @@ fun File.createDirIfNotExists(): File {
     }
 
     return this
-}
+}*/
 
 fun Provider<Directory>.createDir(): Provider<Directory> = map {
     val file = it.asFile

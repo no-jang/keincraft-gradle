@@ -4,3 +4,6 @@
 [submodule "keincraft-test"]
 	path = keincraft-test
 	url = https://github.com/no-jang/keincraft-test
+[submodule "keincraft-deps"]
+	path = keincraft-deps
+	url = https://github.com/no-jang/keincraft-deps
