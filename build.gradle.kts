@@ -6,28 +6,20 @@ plugins {
 
     id("coverage.coverage")
     id("sync.sync-deps")
+
+    id("org.lwjgl.plugin") version "0.0.20"
 }
 
-// General information
 group = "keincraft"
 version = "0.1.0-SNAPSHOT"
 
 val supportedOS = listOf("linux", "macos", "windows")
 
-// Repositories for dependency downloads
 repositories {
     mavenCentral()
     maven("https://oss.sonatype.org/content/repositories/snapshots/")
 }
 
-afterEvaluate {
-    sourceSets.forEach {
-        println(it.name)
-        println(it.compileClasspath.files)
-    }
-}
-
-// Set git subprojects as source roots
 sourceSets {
     named("main") {
         java {
@@ -62,8 +54,124 @@ sourceSets {
     }
 }
 
+/*
+val natives by configurations.creating {
+    isTransitive = false
+*/
+/*    resolutionStrategy {
+        eachDependency {
+            useTarget("${requested.group}:${requested.name}:${requested.version}:")
+
+            addExternalModuleDependencyTo()
+        }
+    }*/
+/*    resolutionStrategy.dependencySubstitution {
+        all {
+            val component = requested;
+            if (component is ModuleComponentSelector) {
+                useTarget(component.group + ":" + component.name + ":" + component.z)
+            }
+        }
+    }*/
+//}
+
+/*fun DependencyHandler.native(dependencyNotation: Any) {
+    val config = natives.name
+
+    val providedNotation = if(dependencyNotation is Provider<*>) {
+        dependencyNotation.get()
+    } else {
+        dependencyNotation
+    }
+
+    val dependencies = mutableListOf<Dependency>()
+
+    if(providedNotation is Iterable<*>) {
+        for(notation in providedNotation) {
+            dependencies.add(create(providedNotation))
+        }
+    } else {
+        dependencies.add(create(providedNotation))
+    }
+
+    for(dependency in dependencies) {
+        add(config, dependency)
+
+        for(os in supportedOS) {
+            addExternalModuleDependencyTo(this, config, dependency.group!!, dependency.name,
+                dependency.version, null, "native-$os", null, null)
+        }
+    }
+}*/
+
+/*fun DependencyHandler.native(dependencyNotation: Any) {
+    val configuration = natives.name
+
+    val notations = dependencyNotation.getProvided()
+    val listedNotations = notations.getListed()
+
+    for(notation in listedNotations) {
+        val dependency = create(notation);
+        //add(configuration, dependency)
+        supportedOS.forEach { os ->
+            addExternalModuleDependencyTo(this, configuration, dependency.group!!, dependency.name, dependency.version, null, "native-$os", null, null)
+        }
+    }
+}
+
+fun Any.getProvided(): Any {
+    if(this is Provider<*>) return get();
+    return this;
+}
+
+fun Any.getListed(): List<Any> {
+    if(this is List<*>) {
+        val list = mutableListOf<Any>()
+        list.addAll(this as Collection<Any>)
+        return list
+    }
+    return listOf(this);
+}*/
+
 dependencies {
-    // Compile Only
+    // Core
+/*    implementation(libs.bundles.lwjgl)
+    native(libs.bundles.lwjgl)*/
+    //Lwjgl {
+    //    allNatives = true
+    //    implementation(Lwjgl.Preset.minimalOpenGL)
+    //    implementation(Lwjgl.Preset.minimalVulkan)
+    //}
+
+    // Compile
+    compileOnly(libs.checkerframework.qual)
+
+    // DI
+    implementation(libs.guice) {
+
+    }
+
+    // IO
+    implementation(libs.joml)
+
+    // Log
+    implementation(libs.bundles.tinylog)
+
+    // Test
+    testImplementation(libs.bundles.junit)
+
+    /*libs.bundles.lwjgl.get().forEach {
+        supportedOS.forEach { os ->
+            implementation(provider { it }) {
+                artifact {
+                    classifier = "native-$os"
+                }
+            }
+        }
+    }*/
+
+
+/*    // Compile Only
     compileOnly("org.checkerframework:checker-qual:3.21.1") // Checker annotations
 
     implementation(platform("org.lwjgl:lwjgl-bom:3.3.1-SNAPSHOT")) // Lwjgl library versions
@@ -96,7 +204,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.8.2") // Test
     testImplementation("org.assertj:assertj-core:3.22.0") // Assertions
     testImplementation("org.mockito:mockito-core:4.3.1") // Mocking
-    testImplementation("org.mockito:mockito-junit-jupiter:4.3.1") // Mocking
+    testImplementation("org.mockito:mockito-junit-jupiter:4.3.1") // Mocking*/
 }
 
 tasks {

@@ -1,0 +1,60 @@
+[versions]
+# Core
+lwjgl = "3.3.1-SNAPSHOT"
+
+# Compile
+checkerframework = "3.21.1"
+
+# DI
+guice = "5.1.0"
+
+# IO
+joml = "1.10.3"
+
+# Log
+tinylog = "2.4.1"
+slf4j = "2.0.0-alpha6"
+
+# Test
+assertj = "3.22.0"
+junit = "5.8.2"
+mockito = "4.3.1"
+
+[libraries]
+# Core
+lwjgl-core = { module = "org.lwjgl:lwjgl", version.ref = "lwjgl" }
+lwjgl-glfw = { module = "org.lwjgl:lwjgl-glfw", version.ref = "lwjgl" }
+lwjgl-opengl = { module = "org.lwjgl:lwjgl-opengl", version.ref = "lwjgl" }
+lwjgl-vulkan = { module = "org.lwjgl:lwjgl-vulkan", version.ref = "lwjgl" }
+
+# Compile
+checkerframework-qual = { module = "org.checkerframework:checker-qual", version.ref = "checkerframework" }
+
+# DI
+guice = { module = "com.google.inject:guice", version.ref = "guice" }
+
+# IO
+joml = { module = "org.joml:joml", version.ref = "joml" }
+
+# Log
+tinylog-core = { module = "org.tinylog:tinylog-impl", version.ref = "tinylog" }
+tinylog-slf4 = { module = "org.tinylog:slf4j-tinylog", version.ref = "tinylog" }
+slf4j = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+
+# Test
+assertj = { module = "org.assertj:assertj-core", version.ref = "assertj" }
+junit = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
+mockito-junit = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito" }
+
+[bundles]
+# Core
+lwjgl = ["lwjgl-core", "lwjgl-glfw", "lwjgl-opengl", "lwjgl-vulkan"]
+
+# Log
+tinylog = ["tinylog-core", "tinylog-slf4", "slf4j"]
+
+# Test
+junit = ["assertj", "junit", "mockito-core", "mockito-junit"]
+
+[plugins]
