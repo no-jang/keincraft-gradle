@@ -7,5 +7,5 @@ out
 build
 
 # Run
-logs
-run
+old/logs
+old/run

@@ -1,0 +1,21 @@
+# Java
+*.class
+
+# BlueJ
+*.ctxt
+team.defs
+
+# Intellij
+.idea
+*.iml
+out
+
+# Gradle
+.gradle
+build
+
+# Vscode
+.vscode
+
+# Logs
+logs

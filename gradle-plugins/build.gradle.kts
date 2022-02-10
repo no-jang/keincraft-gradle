@@ -1,13 +1,16 @@
+import org.gradle.kotlin.dsl.plugins.precompiled.PrecompiledScriptPlugins
+
 plugins {
-    `kotlin-dsl`
-    `kotlin-dsl-precompiled-script-plugins`
+    `kotlin-dsl` apply false
+    `kotlin-dsl-precompiled-script-plugins` apply false
 }
 
-repositories {
-    mavenCentral()
-    gradlePluginPortal()
-}
+subprojects {
+    apply<KotlinDslPlugin>()
+    apply<PrecompiledScriptPlugins>()
 
-dependencies {
-
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
 }
