@@ -77,7 +77,7 @@ dependencies {
     implementation("org.lwjgl", "lwjgl-shaderc")
 
 //    implementation("org.lwjgl3:demo:3.3.1")
-    implementation("org.joml:joml:1.10.3")
+    implementation("org.joml:joml:1.10.4")
 
     // Logging
     implementation("org.tinylog:tinylog-impl:2.4.1")
