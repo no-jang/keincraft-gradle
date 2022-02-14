@@ -3,5 +3,5 @@ plugins {
 }
 
 dependencies {
-    implementation(projects.engineCore)
+    api(projects.engine.graphics)
 }
