@@ -81,7 +81,7 @@ dependencies {
 
     // Logging
     implementation("org.tinylog:tinylog-impl:2.4.1")
-    implementation("org.slf4j:slf4j-api:2.0.0-alpha6")
+    implementation("org.slf4j:slf4j-api:2.0.0-alpha7")
     implementation("org.tinylog:slf4j-tinylog:2.4.1")
 
     // Native libraries
