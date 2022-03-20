@@ -18,5 +18,5 @@ mkdir -p $TMP_DIR
   cd aio || exit
   git apply --allow-empty --reject ../$TMP_DIR/reset.patch
   git add .
-  git commit -m "[RESYNC]"
+  git commit -m "[SYNC]"
 )
