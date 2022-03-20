@@ -9,7 +9,10 @@ fi
 
 mkdir -p $TMP_DIR
 
-git diff HEAD^ HEAD one/two > $TMP_DIR/commit-one.patch
+(
+ cd one || exit
+ git diff HEAD^ HEAD two > ../$TMP_DIR/commit-one.patch
+)
 
 git apply --allow-empty --reject $TMP_DIR/commit-one.patch
 git add .
