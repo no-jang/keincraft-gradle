@@ -10,8 +10,8 @@ fi
 mkdir -p $TMP_DIR
 
 (
- cd one || exit
- git diff HEAD^ HEAD two > ../$TMP_DIR/commit-one.patch
+ cd aio || exit
+ git diff --relative HEAD^ HEAD engine > ../$TMP_DIR/commit-one.patch
 )
 
 git apply --allow-empty --reject $TMP_DIR/commit-one.patch
