@@ -11,7 +11,7 @@ mkdir -p $TMP_DIR
 
 (
   cd engine/common/src/main/java || exit
-  git diff --relative "$(printf "" | git hash-object -t tree --stdin)" HEAD . > ../../../../../$TMP_DIR/reset.patch
+  git diff --relative HEAD^ HEAD . > ../../../../../$TMP_DIR/reset.patch
 )
 
 (
