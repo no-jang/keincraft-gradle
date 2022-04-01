@@ -64,7 +64,7 @@ sourceSets {
 
 dependencies {
     // Compile Only
-    compileOnly("org.checkerframework:checker-qual:3.21.1") // Checker annotations
+    compileOnly("org.checkerframework:checker-qual:3.21.4") // Checker annotations
 
     implementation(platform("org.lwjgl:lwjgl-bom:3.3.1-SNAPSHOT")) // Lwjgl library versions
 
