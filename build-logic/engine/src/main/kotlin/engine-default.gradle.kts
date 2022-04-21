@@ -1,4 +1,5 @@
 plugins {
-    id("java-compile")
-    id("java-test")
+    id("basic-api")
+    id("java-basic")
+    id("java-sourceset")
 }

@@ -9,11 +9,9 @@ dependencyResolutionManagement {
     }
 }
 
-pluginManagement {
-    includeBuild("common")
-}
+includeBuild("common")
 
-include("base")
+include("basic")
 include("engine")
 include("java")
 include("keincraft")
