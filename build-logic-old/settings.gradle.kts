@@ -1,4 +1,4 @@
-import org.gradle.api.internal.FeaturePreviews
+import org.gradle.api.internal.FeaturePreviews.Feature
 
 // FIXME: Gradle does not generate dependency accessors from this file. Gradle version 7.6 might fix it.
 dependencyResolutionManagement {
@@ -9,17 +9,15 @@ dependencyResolutionManagement {
     }
 }
 
-pluginManagement {
-    includeBuild("plugins-common")
-}
+includeBuild("common")
 
-include("common")
 include("basic")
-include("bundle")
+include("engine")
 include("java")
+include("keincraft")
 
 // Activates all incubating features
-FeaturePreviews.Feature.values().forEach { feature ->
+Feature.values().forEach { feature ->
     if (feature.isActive) {
         enableFeaturePreview(feature.name)
     }

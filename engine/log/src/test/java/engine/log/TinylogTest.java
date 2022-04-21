@@ -1,6 +1,6 @@
 package engine.log;
 
-//import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Test;
 import org.tinylog.Logger;
 import org.tinylog.core.Tinylog;
 
@@ -11,7 +11,7 @@ public class TinylogTest {
     /**
      * Verifies that the tinylog @code{Logger} works without throwing exceptions.
      */
-  //  @Test
+    @Test
     public void testLogging() {
         Logger.trace("trace");
         Logger.debug("debug");

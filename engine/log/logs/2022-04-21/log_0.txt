@@ -1,0 +1,5 @@
+23:12:51.630 engine.log.TinylogTest.testLogging() [Test worker] TRACE: trace
+23:12:51.634 engine.log.TinylogTest.testLogging() [Test worker] DEBUG: debug
+23:12:51.634 engine.log.TinylogTest.testLogging() [Test worker] INFO: info
+23:12:51.634 engine.log.TinylogTest.testLogging() [Test worker] WARN: warn
+23:12:51.634 engine.log.TinylogTest.testLogging() [Test worker] ERROR: error

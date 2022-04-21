@@ -4,19 +4,10 @@ import org.gradle.api.internal.FeaturePreviews
 dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
-            from(files("../gradle/libs.versions.toml"))
+            from(files("../../gradle/libs.versions.toml"))
         }
     }
 }
-
-pluginManagement {
-    includeBuild("plugins-common")
-}
-
-include("common")
-include("basic")
-include("bundle")
-include("java")
 
 // Activates all incubating features
 FeaturePreviews.Feature.values().forEach { feature ->

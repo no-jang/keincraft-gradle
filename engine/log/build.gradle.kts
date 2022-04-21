@@ -1,5 +1,5 @@
 plugins {
-    id("engine-default")
+    id("bundle-library")
 }
 
 repositories {
