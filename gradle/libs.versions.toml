@@ -1,13 +1,20 @@
 [versions]
 # Logging
-slf4j = "2.0.0-alpha7"
-tinylog = "2.5.0-M1.1"
+tinylog = "v3.0-SNAPSHOT" # Branch v3.0
+
+# Testing
+#junit = "5.8.2"
+#truth = "1.1.3"
 
 [libraries]
 # Logging
-slf4j = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
-tinylog-core = { module = "org.tinylog:tinylog-impl", version.ref = "tinylog" }
-tinylog-slf4j = { module = "org.tinylog:slf4j-tinylog", version.ref = "tinylog" }
+tinylog-api = { module = "com.github.tinylog-org.tinylog:tinylog-api", version.ref = "tinylog" }
+tinylog-impl = { module = "com.github.tinylog-org.tinylog:tinylog-impl", version.ref = "tinylog" }
+tinylog-modern = { module = "com.github.tinylog-org.tinylog:tinylog-core-modern", version.ref = "tinylog" }
+
+# Testing
+#junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
+#truth = { module = "com.google.truth:truth", version.ref = "truth" }
 
 [bundles]
 
