@@ -1,4 +1,4 @@
-package engine.log;
+package keincraft.engine.log.api;
 
 import org.junit.jupiter.api.Test;
 import org.tinylog.Logger;
