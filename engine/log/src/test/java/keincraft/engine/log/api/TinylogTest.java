@@ -2,7 +2,6 @@ package keincraft.engine.log.api;
 
 import org.junit.jupiter.api.Test;
 import org.tinylog.Logger;
-import org.tinylog.core.Tinylog;
 
 /**
  * Verifies the functionality of the {@link Logger} class without exceptions.
