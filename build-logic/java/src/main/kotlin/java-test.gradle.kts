@@ -8,5 +8,11 @@ dependencies {
 }
 
 tasks.withType<Test> {
+    workingDir(layout.buildDirectory.dir("test"))
+
     useJUnitPlatform()
+
+    doFirst {
+        workingDir.mkdirs()
+    }
 }
