@@ -9,6 +9,7 @@ pluginManagement  {
 // All subprojects - alphabetical order
 include("engine")
 include("engine:log")
+include("engine:log:api")
 
 // Activates all incubating features
 FeaturePreviews.Feature.values().forEach { feature ->

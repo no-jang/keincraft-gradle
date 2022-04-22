@@ -7,7 +7,7 @@ repositories {
 }
 
 dependencies {
-    api(libs.tinylog.api)
+    api(projects.engine.log.api)
 
     implementation(libs.tinylog.impl)
     implementation(libs.tinylog.modern)

@@ -1,5 +1,5 @@
-23:47:15.302 TinylogTest.testLogging() [Test worker] TRACE: trace
-23:47:15.305 TinylogTest.testLogging() [Test worker] DEBUG: debug
-23:47:15.305 TinylogTest.testLogging() [Test worker] INFO: info
-23:47:15.305 TinylogTest.testLogging() [Test worker] WARN: warn
-23:47:15.305 TinylogTest.testLogging() [Test worker] ERROR: error
+10:51:08.213 keincraft.engine.log.api.TinylogTest.testLogging() [Test worker] TRACE: trace
+10:51:08.215 keincraft.engine.log.api.TinylogTest.testLogging() [Test worker] DEBUG: debug
+10:51:08.216 keincraft.engine.log.api.TinylogTest.testLogging() [Test worker] INFO: info
+10:51:08.216 keincraft.engine.log.api.TinylogTest.testLogging() [Test worker] WARN: warn
+10:51:08.216 keincraft.engine.log.api.TinylogTest.testLogging() [Test worker] ERROR: error

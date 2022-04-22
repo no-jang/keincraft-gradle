@@ -1,3 +1,3 @@
 module keincraft.engine.log {
-    exports keincraft.engine.log.api;
+    requires keincraft.engine.log.api;
 }
